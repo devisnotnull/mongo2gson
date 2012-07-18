@@ -92,6 +92,10 @@ public final class Mongo2gson {
     public static JsonElement getAsJsonPrimitive(Object value) {
         if (value instanceof String) {
             return new JsonPrimitive((String) value);
+        } else if (value instanceof Character) {
+            return new JsonPrimitive((Character) value);
+        } else if (value instanceof Integer) {
+            return new JsonPrimitive((Integer) value);
         } else if (value instanceof Long) {
             return new JsonPrimitive((Long) value);
         } else if (value instanceof Double) {
