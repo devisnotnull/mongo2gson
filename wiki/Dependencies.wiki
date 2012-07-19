@@ -7,3 +7,5 @@ You will need following APIs for using mongo2gson API.
   
   # mongodb-java-driver API (version 2.7.2)
   # Google gson API (version 1.7.1)
+
+mongo2gson API has been tested with above dependencies.
