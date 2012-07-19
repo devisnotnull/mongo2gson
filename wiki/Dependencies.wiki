@@ -1,6 +1,4 @@
-#summary One-sentence summary of this page.
 #labels Phase-Implementation,Phase-Design,dependencies
-
 This page describes the API dependencies for mongo2gson.
 
 = Dependencies =
