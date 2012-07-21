@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -26,22 +27,22 @@ public class Mongo2gsonTest extends TestCase {
 
     private static String simpleJsonObject =
             "{\"menu\": " +
-                "{\n" +
-            "  \"id\": \"file\",\n" +
-            "  \"value\": \"File\",\n" +
-                "}" +
-            "}";
+                    "{\n" +
+                    "  \"id\": \"file\",\n" +
+                    "  \"value\": \"File\",\n" +
+                    "}" +
+                    "}";
 
     private static String nestedJsonObject =
             "{\"menu\": " +
-                "{\n" +
-                "  \"id\": \"file\",\n" +
-                "  \"value\": \"File\",\n" +
-                "  \"popup\":\n" +
-                "      {\"value\": \"New\", " +
-                      "\"onclick\": \"CreateNewDoc()\"},\n" +
+                    "{\n" +
+                    "  \"id\": \"file\",\n" +
+                    "  \"value\": \"File\",\n" +
+                    "  \"popup\":\n" +
+                    "      {\"value\": \"New\", " +
+                    "\"onclick\": \"CreateNewDoc()\"},\n" +
                     "  }\n" +
-            "}}";
+                    "}}";
 
     private static String nestedJsonObjectWithArray = "{\"menu\": {\n" +
             "  \"id\": \"file\",\n" +
@@ -88,7 +89,7 @@ public class Mongo2gsonTest extends TestCase {
      */
     public void testSimpleBasicDBObject() {
         BasicDBObject basicDBObject =
-                (BasicDBObject)JSON.parse(simpleJsonObject);
+                (BasicDBObject) JSON.parse(simpleJsonObject);
 
         JsonObject jsonObject = Mongo2gson.getAsJsonObject(basicDBObject);
         assertEquals(jsonObject.getAsJsonObject("menu").get("id").getAsString(), "file");
@@ -96,7 +97,7 @@ public class Mongo2gsonTest extends TestCase {
 
     public void testNestedBasicDBObject() {
         BasicDBObject basicDBObject =
-                (BasicDBObject)JSON.parse(nestedJsonObject);
+                (BasicDBObject) JSON.parse(nestedJsonObject);
 
         JsonObject jsonObject = Mongo2gson.getAsJsonObject(basicDBObject);
         JsonObject popup = jsonObject.getAsJsonObject("menu").get("popup").getAsJsonObject();
@@ -105,22 +106,46 @@ public class Mongo2gsonTest extends TestCase {
 
     public void testNestedBasicDBObjectWithArray() {
         BasicDBObject basicDBObject =
-                (BasicDBObject)JSON.parse(nestedJsonObjectWithArray);
+                (BasicDBObject) JSON.parse(nestedJsonObjectWithArray);
 
         JsonObject jsonObject = Mongo2gson.getAsJsonObject(basicDBObject);
         JsonArray menuitems =
-                (JsonArray)jsonObject.getAsJsonObject("menu").get("popup").getAsJsonObject().get("menuitem").getAsJsonArray();
+                (JsonArray) jsonObject.getAsJsonObject("menu").get("popup").getAsJsonObject().get("menuitem").getAsJsonArray();
         assertEquals(menuitems.get(0).getAsJsonObject().get("value").getAsString(), "New");
         assertEquals(menuitems.get(1).getAsJsonObject().get("value").getAsString(), "Open");
     }
 
     public void testMultiNestedBasicDBObejct() {
         BasicDBObject basicDBObject =
-                (BasicDBObject)JSON.parse(multiNestedJsonObject);
+                (BasicDBObject) JSON.parse(multiNestedJsonObject);
 
         JsonObject jsonObject = Mongo2gson.getAsJsonObject(basicDBObject);
         assertEquals(jsonObject.get("widget").getAsJsonObject().get("text").getAsJsonObject().get("size").getAsInt(), 36);
 
+    }
+
+    public void testgetAsJsonObject() {
+        DBObject obj = new BasicDBObject();
+        obj.put("foo1", "bar1");
+        obj.put("foo2", "bar2");
+
+        JsonObject jsonObject =
+                Mongo2gson.getAsJsonObject(obj);
+    }
+
+    public void testgetAsJsonArray() {
+        DBObject obj1 = new BasicDBObject();
+        obj1.put("foo1", "bar1");
+        DBObject obj2 = new BasicDBObject();
+        obj1.put("foo2", "bar2");
+
+        BasicDBList array = new BasicDBList();
+        array.add(obj1);
+        array.add(obj2);
+
+        // Convert the object using getAsJsonArray API
+        JsonArray jsonArray =
+                Mongo2gson.getAsJsonArray(array);
     }
 
 }
