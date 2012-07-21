@@ -18,6 +18,7 @@ package com.entrib.mongo2gson;
 import com.google.gson.*;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -41,10 +42,14 @@ public final class Mongo2gson {
     /**
      * Convert the given mongo BasicDBList object to JsonArray.
      *
-     * @param list BasicDBList
+     * @param object BasicDBList
      * @return JsonArray
      */
-    public static JsonArray getAsJsonArray(BasicDBList list) {
+    public static JsonArray getAsJsonArray(DBObject object) {
+        if (!(object instanceof BasicDBList)) {
+            throw new IllegalArgumentException("Expected BasicDBList as argument type!");
+        }
+        BasicDBList list = (BasicDBList)object;
         JsonArray jsonArray = new JsonArray();
         for (int i = 0; i < list.size(); i++) {
             Object dbObject = list.get(i);
@@ -62,10 +67,14 @@ public final class Mongo2gson {
     /**
      * Convert the given mongo BasicDBObject to JsonObject.
      *
-     * @param dbObject BasicDBObject
+     * @param object BasicDBObject
      * @return JsonObject
      */
-    public static JsonObject getAsJsonObject(BasicDBObject dbObject) {
+    public static JsonObject getAsJsonObject(DBObject object) {
+        if (!(object instanceof BasicDBObject)) {
+            throw new IllegalArgumentException("Expected BasicDBObject as argument type!");
+        }
+        BasicDBObject dbObject = (BasicDBObject)object;        
         Set<String> keys = dbObject.keySet();
         Iterator<String> iterator = keys.iterator();
         JsonObject jsonObject = new JsonObject();
