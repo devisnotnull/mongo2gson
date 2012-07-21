@@ -1,0 +1,39 @@
+#labels sample-code,example
+Sample code on how to use the APIs
+
+= Introduction =
+
+This page contains the sample code that shows how to use the APIs.
+
+
+= Details =
+
+=== Converting BasicDBObject into JsonObject ===
+{{{
+    // Construct a Mongo BasicDBObject 
+    // The BasicDBObject can come from Mongo Java Driver also
+    DBObject obj = new BasicDBObject();
+    obj.put( "foo1", "bar1" );
+    obj.put( "foo2", "bar2" );
+    
+    // Now convert the BasicDBObject into JsonObejct
+    JsonObject jsonObject = Mongo2gson.getAsJsonObject(obj);
+}}}
+
+=== Converting BasicDBList into JsonArray ===
+{{{
+    // Construct a Mongo BasicDBList
+    DBObject obj1 = new BasicDBObject();
+    obj1.put( "foo1", "bar1" );
+    DBObject obj2 = new BasicDBObject();
+    obj2.put( "foo2", "bar2" );
+
+    DBObject array= new BasicDBList();
+    array.add(obj1);
+    array.add(obj2);
+
+    // Convert the object using getAsJsonArray API
+    JsonArray jsonArray = 
+            Mongo2gson.getAsJsonArray(array);
+
+}}}
