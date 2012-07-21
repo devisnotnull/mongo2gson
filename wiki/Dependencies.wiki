@@ -3,7 +3,7 @@ This page describes the API dependencies for mongo2gson.
 
 = Dependencies =
 
-You will need following APIs for using mongo2gson API. 
+You will need following Jar files for using mongo2gson API. 
   
   # mongodb-java-driver API (version 2.7.2)
   # Google gson API (version 1.7.1)
