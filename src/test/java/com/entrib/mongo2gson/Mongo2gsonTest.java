@@ -10,6 +10,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import java.util.Date;
+
 /**
  * Unit test for BasicDBObject App.
  *
@@ -147,5 +149,26 @@ public class Mongo2gsonTest extends TestCase {
         JsonArray jsonArray =
                 Mongo2gson.getAsJsonArray(array);
     }
+
+    public void testgetAsJsonArrayWithDate() {
+        DBObject obj1 = new BasicDBObject();
+        obj1.put("foo1", "bar1");
+        DBObject obj2 = new BasicDBObject();
+        obj1.put("foo2", "bar2");
+        DBObject obj3 = new BasicDBObject();
+        obj1.put("foo3", new Date());
+
+        BasicDBList array = new BasicDBList();
+        array.add(obj1);
+        array.add(obj2);
+        array.add(obj3);
+
+        // Convert the object using getAsJsonArray API
+        JsonArray jsonArray =
+                Mongo2gson.getAsJsonArray(array);
+        assertNotNull(jsonArray.get(2));
+        assertNotNull(jsonArray.get(1));
+    }
+    
 
 }

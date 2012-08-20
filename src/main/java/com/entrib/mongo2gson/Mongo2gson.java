@@ -19,7 +19,11 @@ import com.google.gson.*;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import org.bson.types.ObjectId;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -39,6 +43,10 @@ import java.util.Set;
  */
 public final class Mongo2gson {
 
+    private static DateFormat dateFormat =
+            new SimpleDateFormat("MM-dd-yyyy-HH-mm-ss-SSS");
+
+    
     /**
      * Convert the given mongo BasicDBList object to JsonArray.
      *
@@ -111,6 +119,10 @@ public final class Mongo2gson {
             return new JsonPrimitive((Double) value);
         } else if (value instanceof Boolean) {
             return new JsonPrimitive((Boolean) value);
+        } else if (value instanceof ObjectId) {
+        	return new JsonPrimitive(value.toString());
+        } else if (value instanceof Date) {
+        	return new JsonPrimitive(dateFormat.format((Date)value));
         }
         throw new IllegalArgumentException("Unsupported value type for: " + value);
     }
