@@ -9,6 +9,7 @@ import com.mongodb.util.JSON;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.bson.types.ObjectId;
 
 import java.util.Date;
 
@@ -170,5 +171,24 @@ public class Mongo2gsonTest extends TestCase {
         assertNotNull(jsonArray.get(1));
     }
     
+    public void testgetAsJsonArrayWithObjectId() {
+        DBObject obj1 = new BasicDBObject();
+        obj1.put("foo1", "bar1");
+        DBObject obj2 = new BasicDBObject();
+        obj1.put("foo2", "bar2");
+        ObjectId obj3 = new ObjectId(new Date());
+        obj1.put("foo3", obj3);
+
+        BasicDBList array = new BasicDBList();
+        array.add(obj1);
+        array.add(obj2);
+        array.add(obj3);
+
+        // Convert the object using getAsJsonArray API
+        JsonArray jsonArray =
+                Mongo2gson.getAsJsonArray(array);
+        assertNotNull(jsonArray.get(2));
+        assertNotNull(jsonArray.get(1));
+    }
 
 }

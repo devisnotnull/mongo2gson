@@ -34,7 +34,9 @@ import java.util.Set;
  * <ul>
  *   <li>Convert given Mongo BasicDBList object to Google Gson JsonArray object</li>
  *   <li>Convert given Mongo BasicDBObject object to Google Gson JsonObject object</li>
- *   <li>Convert given primitive data object such as Long, Double, Boolean as well as String to Google Gson JsonPrimitive object</li> 
+ *   <li>Convert given primitive data object such as Long, Double, Boolean as well as String to Google Gson JsonPrimitive object</li>
+ *   <li>Mongo ObjectId gets converted as string as returned by org.bson.types.ObjectId 
+ *   <li>Date object gets converted into String currently, formatted as "MM-dd-yyyy-HH-mm-ss-SSS".  
  * </ul>
  *
  * The APIs are recursive and hence support nested objects.
