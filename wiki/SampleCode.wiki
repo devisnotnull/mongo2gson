@@ -10,18 +10,29 @@ This page contains the sample code that shows how to use the APIs.
 
 === Converting BasicDBObject into JsonObject ===
 {{{
+
+import com.entrib.mongo2gson.Mongo2gson;
+
+...
+
     // Construct a Mongo BasicDBObject 
     // The BasicDBObject can come from Mongo Java Driver also
     DBObject obj = new BasicDBObject();
     obj.put( "foo1", "bar1" );
     obj.put( "foo2", "bar2" );
     
+    Mongo2gson mongo2gson = new Mongo2gson();
     // Now convert the BasicDBObject into JsonObejct
-    JsonObject jsonObject = Mongo2gson.getAsJsonObject(obj);
+    JsonObject jsonObject = mongo2gson.getAsJsonObject(obj);
 }}}
 
 === Converting BasicDBList into JsonArray ===
 {{{
+
+import com.entrib.mongo2gson.Mongo2gson;
+
+...
+
     // Construct a Mongo BasicDBList
     DBObject obj1 = new BasicDBObject();
     obj1.put( "foo1", "bar1" );
@@ -32,8 +43,9 @@ This page contains the sample code that shows how to use the APIs.
     array.add(obj1);
     array.add(obj2);
 
+    Mongo2gson mongo2gson = new Mongo2gson();
     // Convert the object using getAsJsonArray API
     JsonArray jsonArray = 
-            Mongo2gson.getAsJsonArray(array);
+            mongo2gson.getAsJsonArray(array);
 
 }}}
