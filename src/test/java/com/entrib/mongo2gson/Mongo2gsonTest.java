@@ -1,3 +1,18 @@
+/*
+   Copyright [2012] [Entrib Technologies]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
 package com.entrib.mongo2gson;
 
 import com.google.gson.JsonArray;
@@ -94,7 +109,7 @@ public class Mongo2gsonTest extends TestCase {
         BasicDBObject basicDBObject =
                 (BasicDBObject) JSON.parse(simpleJsonObject);
 
-        JsonObject jsonObject = Mongo2gson.getAsJsonObject(basicDBObject);
+        JsonObject jsonObject = new Mongo2gson().getAsJsonObject(basicDBObject);
         assertEquals(jsonObject.getAsJsonObject("menu").get("id").getAsString(), "file");
     }
 
@@ -102,7 +117,7 @@ public class Mongo2gsonTest extends TestCase {
         BasicDBObject basicDBObject =
                 (BasicDBObject) JSON.parse(nestedJsonObject);
 
-        JsonObject jsonObject = Mongo2gson.getAsJsonObject(basicDBObject);
+        JsonObject jsonObject = new Mongo2gson().getAsJsonObject(basicDBObject);
         JsonObject popup = jsonObject.getAsJsonObject("menu").get("popup").getAsJsonObject();
         assertEquals(popup.get("value").getAsString(), "New");
     }
@@ -111,7 +126,7 @@ public class Mongo2gsonTest extends TestCase {
         BasicDBObject basicDBObject =
                 (BasicDBObject) JSON.parse(nestedJsonObjectWithArray);
 
-        JsonObject jsonObject = Mongo2gson.getAsJsonObject(basicDBObject);
+        JsonObject jsonObject = new Mongo2gson().getAsJsonObject(basicDBObject);
         JsonArray menuitems =
                 (JsonArray) jsonObject.getAsJsonObject("menu").get("popup").getAsJsonObject().get("menuitem").getAsJsonArray();
         assertEquals(menuitems.get(0).getAsJsonObject().get("value").getAsString(), "New");
@@ -122,7 +137,7 @@ public class Mongo2gsonTest extends TestCase {
         BasicDBObject basicDBObject =
                 (BasicDBObject) JSON.parse(multiNestedJsonObject);
 
-        JsonObject jsonObject = Mongo2gson.getAsJsonObject(basicDBObject);
+        JsonObject jsonObject = new Mongo2gson().getAsJsonObject(basicDBObject);
         assertEquals(jsonObject.get("widget").getAsJsonObject().get("text").getAsJsonObject().get("size").getAsInt(), 36);
 
     }
@@ -133,7 +148,7 @@ public class Mongo2gsonTest extends TestCase {
         obj.put("foo2", "bar2");
 
         JsonObject jsonObject =
-                Mongo2gson.getAsJsonObject(obj);
+                new Mongo2gson().getAsJsonObject(obj);
     }
 
     public void testgetAsJsonArray() {
@@ -148,7 +163,7 @@ public class Mongo2gsonTest extends TestCase {
 
         // Convert the object using getAsJsonArray API
         JsonArray jsonArray =
-                Mongo2gson.getAsJsonArray(array);
+                new Mongo2gson().getAsJsonArray(array);
     }
 
     public void testgetAsJsonArrayWithDate() {
@@ -166,7 +181,7 @@ public class Mongo2gsonTest extends TestCase {
 
         // Convert the object using getAsJsonArray API
         JsonArray jsonArray =
-                Mongo2gson.getAsJsonArray(array);
+                new Mongo2gson().getAsJsonArray(array);
         assertNotNull(jsonArray.get(2));
         assertNotNull(jsonArray.get(1));
     }
@@ -186,7 +201,7 @@ public class Mongo2gsonTest extends TestCase {
 
         // Convert the object using getAsJsonArray API
         JsonArray jsonArray =
-                Mongo2gson.getAsJsonArray(array);
+                new Mongo2gson().getAsJsonArray(array);
         assertNotNull(jsonArray.get(2));
         assertNotNull(jsonArray.get(1));
     }

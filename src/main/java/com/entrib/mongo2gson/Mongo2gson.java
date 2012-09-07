@@ -45,8 +45,18 @@ import java.util.Set;
  */
 public final class Mongo2gson {
 
-    private static DateFormat dateFormat =
+    private static DateFormat defaultDateFormat =
             new SimpleDateFormat("MM-dd-yyyy-HH-mm-ss-SSS");
+
+    private DateFormat dateFormat;
+
+    public Mongo2gson() {
+        this.dateFormat  = defaultDateFormat;
+    }
+
+    public Mongo2gson(DateFormat dateFormat) {
+        this.dateFormat = dateFormat;
+    }
 
     
     /**
@@ -55,7 +65,7 @@ public final class Mongo2gson {
      * @param object BasicDBList
      * @return JsonArray
      */
-    public static JsonArray getAsJsonArray(DBObject object) {
+    public JsonArray getAsJsonArray(DBObject object) {
         if (!(object instanceof BasicDBList)) {
             throw new IllegalArgumentException("Expected BasicDBList as argument type!");
         }
@@ -80,7 +90,7 @@ public final class Mongo2gson {
      * @param object BasicDBObject
      * @return JsonObject
      */
-    public static JsonObject getAsJsonObject(DBObject object) {
+    public JsonObject getAsJsonObject(DBObject object) {
         if (!(object instanceof BasicDBObject)) {
             throw new IllegalArgumentException("Expected BasicDBObject as argument type!");
         }
@@ -108,7 +118,7 @@ public final class Mongo2gson {
      * @param value Object
      * @return JsonElement
      */
-    public static JsonElement getAsJsonPrimitive(Object value) {
+    public JsonElement getAsJsonPrimitive(Object value) {
         if (value instanceof String) {
             return new JsonPrimitive((String) value);
         } else if (value instanceof Character) {
