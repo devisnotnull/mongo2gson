@@ -49,3 +49,27 @@ import com.entrib.mongo2gson.Mongo2gson;
             mongo2gson.getAsJsonArray(array);
 
 }}}
+
+
+=== Formatting the Mongo Date object ===
+While converting Mongo objects to Gson objects, if a Mongo object contains an embedded Date object, then this Date gets converted as JsonElement with underlying data type as String. This string can be now formatted the way application needs. 
+ 
+{{{
+
+import com.entrib.mongo2gson.Mongo2gson;
+
+...
+
+    // Construct a Mongo BasicDBObject 
+    // The BasicDBObject can come from Mongo Java Driver also
+    DBObject obj = new BasicDBObject();
+    obj.put( "foo1", "bar1" );
+    obj.put( "foo2", "bar2" );
+    obj.put( "foo3", new Date());
+    
+    DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+
+    Mongo2gson mongo2gson = new Mongo2gson(dateFormat);
+    // Now convert the BasicDBObject into JsonObject
+    JsonObject jsonObject = mongo2gson.getAsJsonObject(obj);
+}}}
