@@ -56,6 +56,9 @@ While converting Mongo objects to Gson objects, if a Mongo object contains an em
  
 {{{
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import com.entrib.mongo2gson.Mongo2gson;
 
 ...
