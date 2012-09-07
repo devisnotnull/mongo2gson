@@ -51,7 +51,7 @@ import com.entrib.mongo2gson.Mongo2gson;
 }}}
 
 
-=== Formatting the Mongo Date object ===
+=== Formatting the Date object that's part of Mongo obejcts ===
 While converting Mongo objects to Gson objects, if a Mongo object contains an embedded Date object, then this Date gets converted as JsonElement with underlying data type as String. This string can be now formatted the way application needs. 
  
 {{{
