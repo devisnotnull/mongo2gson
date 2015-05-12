@@ -1,0 +1,5 @@
+mongo2gson is a Java API that aims to convert Java mongo DBObjects to Google's Gson objects. It supports converting BasicDBList, BasicDBObject and primitive data types to JsonArray, JsonObject and JsonPrimitive objects.
+
+This is particularly useful if you want to use Mongo data in some other interface layer (may be user interface) with type checking and type safety. Mongo data objects can return JSON string but if you want to have type safety surrounding the JSON string then this API should be useful.
+
+It's also worthwhile to note that in order to serialize a JSON formatted string into JSON object using Google's GSON API, one has to provide a serialization implementation class which will do the actual serialization. Mongo2gson API exploits the Mongo Java object type structure to come-up with the JSON objects using Google's GSON API.
